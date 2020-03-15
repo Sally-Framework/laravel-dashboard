@@ -2,18 +2,33 @@
 
 namespace Tests\Domain\Statistic\Type;
 
-use Codeception\PHPUnit\TestCase;
+use Sally\Dashboard\Domain\Statistic\Type\AbstractType;
 use Sally\Dashboard\Domain\Statistic\Type\Text;
 
-class TextTest extends TestCase
+class TextTest extends AbstractTypeTest
 {
-    public function testCreation()
-    {
-        $someName  = '::some name::';
-        $someValue = '::some value::';
-        $text = new Text($someName, $someValue);
+    /**
+     * @var string
+     */
+    private $testTextName = '::some name::';
 
-        $this->assertSame($someName, $text->getName());
-        $this->assertSame($someValue, $text->getValue());
+    /**
+     * @var string
+     */
+    private $testTextValue = '::some value::';
+
+    public function testCreation(): void
+    {
+        $text = $this->getModel();
+        $this->assertSame($this->testTextName, $text->getName());
+        $this->assertSame($this->testTextValue, $text->getValue());
+    }
+
+    /**
+     * @return AbstractType|Text
+     */
+    protected function getModel(): AbstractType
+    {
+        return  new Text($this->testTextName, $this->testTextValue);
     }
 }
