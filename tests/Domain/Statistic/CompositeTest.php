@@ -22,13 +22,9 @@ class CompositeTest extends TestCase
     public function testGettingItemsAfterAdd()
     {
         $this->assertEmpty($this->composite->getItems());
-        $type = $this->getAbstractType();
+        $type = new Text('::some name::', '::some value::');
         $this->composite->add($type);
         $this->assertSame([$type], $this->composite->getItems());
     }
 
-    private function getAbstractType(): AbstractType
-    {
-        return new Text('::some name::', '::some value::');
-    }
 }
