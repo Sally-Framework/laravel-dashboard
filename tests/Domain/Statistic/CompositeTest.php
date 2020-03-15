@@ -4,7 +4,6 @@ namespace Tests\Domain\Statistic;
 
 use PHPUnit\Framework\TestCase;
 use Sally\Dashboard\Domain\Statistic\Composite;
-use Sally\Dashboard\Domain\Statistic\Type\AbstractType;
 use Sally\Dashboard\Domain\Statistic\Type\Text;
 
 class CompositeTest extends TestCase
@@ -26,5 +25,4 @@ class CompositeTest extends TestCase
         $this->composite->add($type);
         $this->assertSame([$type], $this->composite->getItems());
     }
-
 }
