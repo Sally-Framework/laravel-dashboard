@@ -9,12 +9,12 @@
     ],
     "version": "1.3.0",
     "minimum-stability": "dev",
+    "require": {
+        "laravel/helpers": "^1.0@dev"
+    },
     "autoload": {
         "psr-4": {
             "Sally\\Dashboard\\": "src/"
         }
-    },
-    "require": {
-        "laravel/helpers": "^1.0@dev"
     }
 }
