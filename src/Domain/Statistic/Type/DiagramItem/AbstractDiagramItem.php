@@ -2,7 +2,7 @@
 
 namespace Sally\Dashboard\Domain\Statistic\Type\DiagramItem;
 
-abstract class AbstractDiagramItem 
+abstract class AbstractDiagramItem
 {
     /**
      * @var string
@@ -14,7 +14,7 @@ abstract class AbstractDiagramItem
         $this->name = $name;
     }
 
-    public function name(): string
+    public function getName(): string
     {
         return $this->name;
     }

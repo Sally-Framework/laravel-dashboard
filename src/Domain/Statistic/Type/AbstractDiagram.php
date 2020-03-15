@@ -27,7 +27,7 @@ abstract class AbstractDiagram extends AbstractType
      *
      * @param callable $callback(DiagramItem\Factory $factory): array
      */
-    public function addItem(callable $callback): void
+    public function addItems(callable $callback): void
     {
         $items = call_user_func($callback, $this->factory);
         foreach ($items as $item) {

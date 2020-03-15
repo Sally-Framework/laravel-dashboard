@@ -4,6 +4,7 @@ namespace Sally\Dashboard;
 
 use Illuminate\Support\ServiceProvider;
 use Sally\Dashboard\Helpers\Config;
+use Yoeunes\Toastr\ToastrServiceProvider;
 
 class DashboardServiceProvider extends ServiceProvider
 {
@@ -33,7 +34,15 @@ class DashboardServiceProvider extends ServiceProvider
         $configFileName = Config::CONFIG_FILE_NAME;
         $this->publishes([
             __DIR__.'/config.php' => config_path("{$configFileName}.php"),
-        ]);
+        ], 'config');
+
+        $this->publishes([
+            __DIR__ . '/resources' => public_path('n0tm/dashboard'),
+        ], 'public');
     }
 
+    public function provides()
+    {
+        return [ToastrServiceProvider::class];
+    }
 }

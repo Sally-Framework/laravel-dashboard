@@ -2,6 +2,7 @@
 
 namespace Sally\Dashboard\Domain\Statistic;
 
+use Sally\Dashboard\Domain\Statistic\Type\DiagramPie;
 use Sally\Dashboard\Domain\Statistic\Type\Table;
 
 class DemoHandler extends AbstractHandler
@@ -29,6 +30,46 @@ class DemoHandler extends AbstractHandler
             $bigTableRowsLimit
         );
         $statistic->add($bigTable);
+
+        // Генерация графика пирога
+        $statistic->add(
+            $this->getFilledPieDiagramByValuesRange(
+                $factory->diagramPie($this->getRandomLoremIpsum()),
+                2,
+                5
+            )
+        );
+
+        $statistic->add(
+            $this->getFilledPieDiagramByValuesRange(
+                $factory->diagramPie($this->getRandomLoremIpsum()),
+                2,
+                5
+            )
+        );
+
+        $statistic->add(
+            $this->getFilledPieDiagramByValuesRange(
+                $factory->diagramPie($this->getRandomLoremIpsum()),
+                2,
+                5
+            )
+        );
+    }
+
+    private function getFilledPieDiagramByValuesRange(DiagramPie $diagram, int $start, int $stop): DiagramPie
+    {
+        $diagram->addItems(function (Type\DiagramItem\Factory $factory) use ($start, $stop): array {
+            $items = [];
+            $maxValues = random_int($start, $stop);
+            for ($i = 0; $i < $maxValues; $i++) {
+                $items[] = $factory->quantity($this->getRandomLoremIpsum(), random_int(200, 1000));
+            }
+
+            return $items;
+        });
+
+        return $diagram;
     }
 
     private function getFilledTableWithRandomDataByRowsCount(Table $table, int $rowsCount): Table

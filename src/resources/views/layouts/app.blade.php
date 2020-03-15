@@ -14,7 +14,7 @@
         @toastr_css
 
         <!-- Scripts -->
-        <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="{{ asset('n0tm/dashboard/js/tools.js') }}" defer></script>
         @jquery
         @toastr_js
 

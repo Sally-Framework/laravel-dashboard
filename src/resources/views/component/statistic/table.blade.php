@@ -4,7 +4,7 @@
 
 @component('dashboard::component.card', ['header' => $name])
     @slot('body')
-        <div style="height: 400px; overflow-y: auto;">
+        <div style="max-height: 400px; overflow-y: auto;">
             <table class="table table-hover">
                 <thead>
                 <tr>
