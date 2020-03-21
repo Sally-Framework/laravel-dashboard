@@ -15,7 +15,7 @@ class QuantityGroup extends Quantity
         $this->indicator = $indicator;
     }
 
-    public function indicator(): string 
+    public function getIndicator(): string
     {
         return $this->indicator;
     }

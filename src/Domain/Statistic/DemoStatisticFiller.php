@@ -48,15 +48,10 @@ class DemoStatisticFiller extends AbstractStatisticFiller
 
     private function getFilledPieDiagramByValuesRange(DiagramPie $diagram, int $start, int $stop): DiagramPie
     {
-        $diagram->addItems(function (Type\DiagramItem\Factory $factory) use ($start, $stop): array {
-            $items = [];
-            $maxValues = random_int($start, $stop);
-            for ($i = 0; $i < $maxValues; $i++) {
-                $items[] = $factory->quantity($this->getRandomLoremIpsum(), random_int(200, 1000));
-            }
-
-            return $items;
-        });
+	    $maxValues = random_int($start, $stop);
+	    for ($i = 0; $i < $maxValues; $i++) {
+		    $diagram->addItem($this->getRandomLoremIpsum(), random_int(200, 1000));
+	    }
 
         return $diagram;
     }

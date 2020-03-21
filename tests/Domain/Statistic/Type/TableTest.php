@@ -6,45 +6,38 @@ use Sally\Dashboard\Domain\Statistic\Type;
 
 class TableTest extends AbstractTypeTest
 {
-    private const TEST_TABLE_NAME = '::some name';
-
-	/**
-	 * @var Type\Table
-	 */
-    private $table;
-
-    public function setUp(): void
-    {
-		$this->table = new Type\Table(self::TEST_TABLE_NAME);
-    }
-
 	public function testGetName(): void
 	{
-		$this->assertSame(self::TEST_TABLE_NAME, $this->table->getName());
+		$this->assertSame(self::TEST_STATISTIC_NAME, $this->type->getName());
 	}
 
 	public function testGetHeaders(): void
 	{
-		$this->assertEmpty($this->table->getHeaders());
+		$this->assertEmpty($this->type->getHeaders());
 
 		$expectedHeaders = ['::some first header::', '::some second header::'];
-		$this->table->setHeaders($expectedHeaders);
+		$this->type->setHeaders($expectedHeaders);
 
-		$this->assertSame($expectedHeaders, $this->table->getHeaders());
+		$this->assertSame($expectedHeaders, $this->type->getHeaders());
 	}
 
 	public function testGetRows(): void
 	{
-		$this->assertEmpty($this->table->getRows());
+		$this->assertEmpty($this->type->getRows());
 
 		$expectedRows    = [
 			['::some first row for first column::', '::some first row for second column::'],
 			['::some second row for first column::', '::some second row for second column::'],
 		];
 		foreach ($expectedRows as $expectedRow) {
-			$this->table->addRow($expectedRow);
+			$this->type->addRow($expectedRow);
 		}
 
-		$this->assertSame($expectedRows, $this->table->getRows());
+		$this->assertSame($expectedRows, $this->type->getRows());
+	}
+
+	protected function getType(): Type\AbstractType
+	{
+		return new Type\Table(self::TEST_STATISTIC_NAME);
 	}
 }

@@ -9,11 +9,11 @@ namespace Tests\Domain\Statistic\Type;
 use Sally\Dashboard\Domain\Statistic\Type;
 
 /**
- * Class DiagramPieTest
+ * Class DiagramLineTest
  * @package Tests\Domain\Statistic\Type
- * @property Type\DiagramPie $type
+ * @property Type\DiagramLine $type
  */
-class DiagramPieTest extends AbstractDiagramTest
+class DiagramLineTest extends AbstractDiagramTest
 {
 	public function testGetName(): void
 	{
@@ -24,22 +24,22 @@ class DiagramPieTest extends AbstractDiagramTest
 	{
 		$this->assertEmpty($this->type->getItems());
 
-		$itemName = '::some test name::';
+		$itemName = '::name::';
 		$itemQuantity = 100;
+		$itemIndicator = '::indicator::';
 		$this->factory
 			->expects($this->once())
-			->method('quantity')
-			->with($itemName, $itemQuantity);
+			->method('quantityGroup')
+			->with($itemName, $itemQuantity, $itemIndicator);
 
-		$this->type->addItem('::some test name::', 100);
-
+		$this->type->addItem($itemName, $itemQuantity, $itemIndicator);
 		$items = $this->type->getItems();
 		$this->assertSame(1, count($items));
-		$this->assertContainsOnlyInstancesOf(Type\DiagramItem\Quantity::class, $items);
+		$this->assertContainsOnlyInstancesOf(Type\DiagramItem\QuantityGroup::class, $items);
 	}
 
 	protected function getType(): Type\AbstractType
 	{
-		return new Type\DiagramPie(self::TEST_STATISTIC_NAME, $this->factory);
+		return new Type\DiagramLine(self::TEST_STATISTIC_NAME, $this->factory);
 	}
 }

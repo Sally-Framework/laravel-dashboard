@@ -2,7 +2,7 @@
 
 namespace Sally\Dashboard\Domain\Statistic\Type;
 
-class DiagramLine extends AbstractDiagram 
+class DiagramLine extends AbstractGroupQuantityDiagram
 {
 
 }

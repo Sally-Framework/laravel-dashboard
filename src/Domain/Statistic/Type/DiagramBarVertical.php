@@ -2,7 +2,7 @@
 
 namespace Sally\Dashboard\Domain\Statistic\Type;
 
-class DiagramBarVertical extends AbstractDiagram 
+class DiagramBarVertical extends AbstractQuantityDiagram
 {
 
 }

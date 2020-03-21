@@ -2,7 +2,7 @@
 
 namespace Sally\Dashboard\Domain\Statistic\Type;
 
-class DiagramPie extends AbstractDiagram 
+class DiagramPie extends AbstractQuantityDiagram
 {
 
 }
