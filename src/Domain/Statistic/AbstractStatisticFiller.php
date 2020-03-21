@@ -4,8 +4,9 @@ namespace Sally\Dashboard\Domain\Statistic;
 
 use Sally\Dashboard\Domain\Statistic\Interfaces\CompositeInterface;
 use Sally\Dashboard\Domain\Statistic\Interfaces\Type\FactoryInterface;
+use Sally\Dashboard\Domain\Statistic\Type\AbstractType;
 
-abstract class AbstractHandler
+abstract class AbstractStatisticFiller
 {
     /**
      * @var CompositeInterface
@@ -24,13 +25,13 @@ abstract class AbstractHandler
     }
 
 	/**
-	 * @inheritDoc
+	 * @return AbstractType[]
 	 */
-    public function getItems(): array
+    public function getFilled(): array
     {
-    	$this->handle($this->statistic, $this->factory);
+    	$this->fill($this->statistic, $this->factory);
         return $this->statistic->getItems();
     }
 
-    abstract protected function handle(CompositeInterface $statistic, FactoryInterface $factory): void;
+    abstract protected function fill(CompositeInterface $statistic, FactoryInterface $factory): void;
 }

@@ -3,6 +3,10 @@
 namespace Sally\Dashboard;
 
 use Illuminate\Support\ServiceProvider;
+use Sally\Dashboard\Domain\Statistic\Composite;
+use Sally\Dashboard\Domain\Statistic\Interfaces\CompositeInterface;
+use Sally\Dashboard\Domain\Statistic\Interfaces\Type\FactoryInterface;
+use Sally\Dashboard\Domain\Statistic\Type\Factory;
 use Sally\Dashboard\Helpers\Config;
 use Yoeunes\Toastr\ToastrServiceProvider;
 
@@ -16,10 +20,13 @@ class DashboardServiceProvider extends ServiceProvider
      */
     public function register()
     {
+	    $this->app->bind(CompositeInterface::class, Composite::class);
+	    $this->app->bind(FactoryInterface::class, Factory::class);
+
         $this->app->make('Sally\Dashboard\Controller\MainController');
         $this->app->make('Sally\Dashboard\Controller\StatisticController');
 
-        $this->loadViewsFrom(__DIR__.'/resources/views', 'dashboard');
+	    $this->loadViewsFrom(__DIR__.'/resources/views', 'dashboard');
     }
 
     /**

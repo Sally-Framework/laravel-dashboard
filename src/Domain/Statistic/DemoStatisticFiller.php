@@ -7,9 +7,9 @@ use Sally\Dashboard\Domain\Statistic\Interfaces\Type\FactoryInterface;
 use Sally\Dashboard\Domain\Statistic\Type\DiagramPie;
 use Sally\Dashboard\Domain\Statistic\Type\Table;
 
-class DemoHandler extends AbstractHandler
+class DemoStatisticFiller extends AbstractStatisticFiller
 {
-    protected function handle(CompositeInterface $statistic, FactoryInterface $factory): void {
+    protected function fill(CompositeInterface $statistic, FactoryInterface $factory): void {
         // Генерация текстовых карточек
         $textCardsLimit = 3;
         for ($i = 0; $i < $textCardsLimit; $i++) {

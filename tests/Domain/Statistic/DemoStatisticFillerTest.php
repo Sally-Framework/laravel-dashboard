@@ -9,14 +9,14 @@ namespace Tests\Domain\Statistic;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Sally\Dashboard\Domain\Statistic\Composite;
-use Sally\Dashboard\Domain\Statistic\DemoHandler;
+use Sally\Dashboard\Domain\Statistic\DemoStatisticFiller;
 use Sally\Dashboard\Domain\Statistic\Interfaces\CompositeInterface;
 use Sally\Dashboard\Domain\Statistic\Interfaces\Type\FactoryInterface;
 use Sally\Dashboard\Domain\Statistic\Type\Factory;
 
-class DemoHandlerTest extends TestCase
+class DemoStatisticFillerTest extends TestCase
 {
-	public function testHandle(): void
+	public function testFillStatistic(): void
 	{
 		/** @var Factory|MockObject $factory */
 		$factory   = $this->createMock(FactoryInterface::class);
@@ -41,11 +41,12 @@ class DemoHandlerTest extends TestCase
 			->method('diagramPie')
 			->withAnyParameters();
 
-		$statistic->expects($this->exactly($textCardLimitCount + $tablesLimitCount + $pieDiagramLimit))
+		$totalStatisticItemsCount = $textCardLimitCount + $tablesLimitCount + $pieDiagramLimit;
+		$statistic->expects($this->exactly($totalStatisticItemsCount))
 			->method('add')
 			->withAnyParameters();
 
-		$demoHandler = new DemoHandler($statistic, $factory);
-		$demoHandler->getItems();
+		$demoHandler = new DemoStatisticFiller($statistic, $factory);
+		$demoHandler->getFilled();
 	}
 }
