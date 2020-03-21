@@ -16,7 +16,7 @@ use Sally\Dashboard\Domain\Statistic\Type\Factory;
 
 class DemoStatisticFillerTest extends TestCase
 {
-	public function testFillStatistic(): void
+	public function testGetFilled(): void
 	{
 		/** @var Factory|MockObject $factory */
 		$factory   = $this->createMock(FactoryInterface::class);
