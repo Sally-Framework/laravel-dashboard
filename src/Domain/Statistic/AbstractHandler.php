@@ -2,29 +2,35 @@
 
 namespace Sally\Dashboard\Domain\Statistic;
 
+use Sally\Dashboard\Domain\Statistic\Interfaces\CompositeInterface;
+use Sally\Dashboard\Domain\Statistic\Interfaces\Type\FactoryInterface;
+
 abstract class AbstractHandler
 {
     /**
-     * @var Composite
+     * @var CompositeInterface
      */
     private $statistic;
 
     /**
-     * @var Type\Factory
+     * @var FactoryInterface
      */
     private $factory;
 
-    public function __construct()
+    public function __construct(CompositeInterface $statistic, FactoryInterface $factory)
     {
-        $this->statistic = new Composite();
-        $this->factory   = new Type\Factory();
-        $this->handle($this->statistic, $this->factory);
+	    $this->statistic = $statistic;
+	    $this->factory   = $factory;
     }
 
-    public function getStatistic(): Composite
+	/**
+	 * @inheritDoc
+	 */
+    public function getItems(): array
     {
-        return $this->statistic;
+    	$this->handle($this->statistic, $this->factory);
+        return $this->statistic->getItems();
     }
 
-    abstract protected function handle(Composite $statistic, Type\Factory $factory): void;
+    abstract protected function handle(CompositeInterface $statistic, FactoryInterface $factory): void;
 }

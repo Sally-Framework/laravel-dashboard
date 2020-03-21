@@ -2,7 +2,9 @@
 
 namespace Sally\Dashboard\Domain\Statistic\Type;
 
-class Factory 
+use Sally\Dashboard\Domain\Statistic\Interfaces\Type\FactoryInterface;
+
+class Factory implements FactoryInterface
 {
     public function text(string $name, $value): Text 
     {

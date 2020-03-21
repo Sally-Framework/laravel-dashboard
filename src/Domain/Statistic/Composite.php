@@ -2,7 +2,9 @@
 
 namespace Sally\Dashboard\Domain\Statistic;
 
-class Composite
+use Sally\Dashboard\Domain\Statistic\Interfaces\CompositeInterface;
+
+class Composite implements CompositeInterface
 {
     /**
      * @var Type\AbstractType[]

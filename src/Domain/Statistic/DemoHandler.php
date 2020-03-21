@@ -2,14 +2,16 @@
 
 namespace Sally\Dashboard\Domain\Statistic;
 
+use Sally\Dashboard\Domain\Statistic\Interfaces\CompositeInterface;
+use Sally\Dashboard\Domain\Statistic\Interfaces\Type\FactoryInterface;
 use Sally\Dashboard\Domain\Statistic\Type\DiagramPie;
 use Sally\Dashboard\Domain\Statistic\Type\Table;
 
 class DemoHandler extends AbstractHandler
 {
-    protected function handle(Composite $statistic, Type\Factory $factory): void {
+    protected function handle(CompositeInterface $statistic, FactoryInterface $factory): void {
         // Генерация текстовых карточек
-        $textCardsLimit = random_int(3, 6);
+        $textCardsLimit = 3;
         for ($i = 0; $i < $textCardsLimit; $i++) {
             $statistic->add(
                 $factory->text($this->getRandomLoremIpsum(), random_int(0, 1000))
@@ -32,29 +34,16 @@ class DemoHandler extends AbstractHandler
         $statistic->add($bigTable);
 
         // Генерация графика пирога
-        $statistic->add(
-            $this->getFilledPieDiagramByValuesRange(
-                $factory->diagramPie($this->getRandomLoremIpsum()),
-                2,
-                5
-            )
-        );
-
-        $statistic->add(
-            $this->getFilledPieDiagramByValuesRange(
-                $factory->diagramPie($this->getRandomLoremIpsum()),
-                2,
-                5
-            )
-        );
-
-        $statistic->add(
-            $this->getFilledPieDiagramByValuesRange(
-                $factory->diagramPie($this->getRandomLoremIpsum()),
-                2,
-                5
-            )
-        );
+	    $pieDiagramLimit = 3;
+	    for ($i = 0; $i < $pieDiagramLimit; $i++) {
+		    $statistic->add(
+			    $this->getFilledPieDiagramByValuesRange(
+				    $factory->diagramPie($this->getRandomLoremIpsum()),
+				    2,
+				    5
+			    )
+		    );
+	    }
     }
 
     private function getFilledPieDiagramByValuesRange(DiagramPie $diagram, int $start, int $stop): DiagramPie
