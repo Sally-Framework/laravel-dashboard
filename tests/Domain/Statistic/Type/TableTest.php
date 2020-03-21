@@ -2,42 +2,49 @@
 
 namespace Tests\Domain\Statistic\Type;
 
-use Sally\Dashboard\Domain\Statistic\Type\AbstractType;
-use Sally\Dashboard\Domain\Statistic\Type\Table;
+use Sally\Dashboard\Domain\Statistic\Type;
 
 class TableTest extends AbstractTypeTest
 {
-    private $testTableName = '::some name';
+    private const TEST_TABLE_NAME = '::some name';
 
-    public function testCreation(): void
+	/**
+	 * @var Type\Table
+	 */
+    private $table;
+
+    public function setUp(): void
     {
-        $table = $this->getModel();
-        $this->assertSame($this->testTableName, $table->getName());
-
-        $this->assertEmpty($table->getHeaders());
-        $this->assertEmpty($table->getRows());
-
-        $expectedHeaders = ['::some first header::', '::some second header::'];
-        $expectedRows    = [
-            ['::some first row for first column::', '::some first row for second column::'],
-            ['::some second row for first column::', '::some second row for second column::'],
-        ];
-
-        foreach ($expectedRows as $expectedRow) {
-            $table->addRow($expectedRow);
-        }
-
-        $table->setHeaders($expectedHeaders);
-
-        $this->assertSame($expectedHeaders, $table->getHeaders());
-        $this->assertSame($expectedRows, $table->getRows());
+		$this->table = new Type\Table(self::TEST_TABLE_NAME);
     }
 
-    /**
-     * @return Table
-     */
-    protected function getModel(): AbstractType
-    {
-        return new Table($this->testTableName);
-    }
+	public function testGetName(): void
+	{
+		$this->assertSame(self::TEST_TABLE_NAME, $this->table->getName());
+	}
+
+	public function testGetHeaders(): void
+	{
+		$this->assertEmpty($this->table->getHeaders());
+
+		$expectedHeaders = ['::some first header::', '::some second header::'];
+		$this->table->setHeaders($expectedHeaders);
+
+		$this->assertSame($expectedHeaders, $this->table->getHeaders());
+	}
+
+	public function testGetRows(): void
+	{
+		$this->assertEmpty($this->table->getRows());
+
+		$expectedRows    = [
+			['::some first row for first column::', '::some first row for second column::'],
+			['::some second row for first column::', '::some second row for second column::'],
+		];
+		foreach ($expectedRows as $expectedRow) {
+			$this->table->addRow($expectedRow);
+		}
+
+		$this->assertSame($expectedRows, $this->table->getRows());
+	}
 }

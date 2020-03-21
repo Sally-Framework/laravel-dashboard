@@ -19,9 +19,9 @@ class Table extends AbstractType
         $this->headers = $headers;
     }
 
-    public function addRow(array $column): void
+    public function addRow(array $row): void
     {
-        $this->rows[] = $column;
+        $this->rows[] = $row;
     }
 
     public function getHeaders(): array

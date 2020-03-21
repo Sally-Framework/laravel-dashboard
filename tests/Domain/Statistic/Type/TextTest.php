@@ -2,33 +2,30 @@
 
 namespace Tests\Domain\Statistic\Type;
 
-use Sally\Dashboard\Domain\Statistic\Type\AbstractType;
 use Sally\Dashboard\Domain\Statistic\Type\Text;
 
 class TextTest extends AbstractTypeTest
 {
-    /**
-     * @var string
-     */
-    private $testTextName = '::some name::';
+    private const TEST_TEXT_NAME  = '::some name::';
+    private const TEST_TEXT_VALUE = '::some value::';
 
-    /**
-     * @var string
-     */
-    private $testTextValue = '::some value::';
+	/**
+	 * @var Text
+	 */
+    private $text;
 
-    public function testCreation(): void
+    protected function setUp(): void
     {
-        $text = $this->getModel();
-        $this->assertSame($this->testTextName, $text->getName());
-        $this->assertSame($this->testTextValue, $text->getValue());
+		$this->text = new Text(self::TEST_TEXT_NAME, self::TEST_TEXT_VALUE);
     }
 
-    /**
-     * @return AbstractType|Text
-     */
-    protected function getModel(): AbstractType
-    {
-        return  new Text($this->testTextName, $this->testTextValue);
-    }
+	public function testGetName(): void
+	{
+		$this->assertSame(self::TEST_TEXT_NAME, $this->text->getName());
+	}
+
+	public function testGetValue(): void
+	{
+		$this->assertSame(self::TEST_TEXT_VALUE, $this->text->getValue());
+	}
 }

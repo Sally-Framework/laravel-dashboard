@@ -3,18 +3,19 @@
 namespace Tests\Domain\Statistic\Type;
 
 use PHPUnit\Framework\TestCase;
-use Sally\Dashboard\Domain\Statistic\Type\Factory;
+use Sally\Dashboard\Domain\Statistic\Interfaces\Type\FactoryInterface;
+use Sally\Dashboard\Domain\Statistic\Type;
 
 class FactoryTest extends TestCase
 {
     /**
-     * @var Factory
+     * @var FactoryInterface
      */
     private $factory;
 
-    public function setUp()
+    public function setUp(): void
     {
-        $this->factory = new Factory();
+        $this->factory = new Type\Factory();
     }
 
     public function testTextGeneration(): void
@@ -24,24 +25,15 @@ class FactoryTest extends TestCase
 
         $text = $this->factory->text($textName, $textValue);
 
-        $this->assertSame($textName, $text->getName());
-        $this->assertSame($textValue, $text->getValue());
+        $this->assertEquals(new Type\Text($textName, $textValue), $text);
     }
 
     public function testTableGeneration(): void
     {
-        $tableName    = '::some text name::';
-        $tableHeaders = ['::some header::'];
-        $tableRow     = ['::some row for first column::'];
-
+        $tableName = '::some text name::';
         $table = $this->factory->table($tableName);
 
-        $table->setHeaders($tableHeaders);
-        $table->addRow($tableRow);
-
-        $this->assertSame($tableName, $table->getName());
-        $this->assertSame($tableHeaders, $table->getHeaders());
-        $this->assertSame([$tableRow], $table->getRows());
+	    $this->assertEquals(new Type\Table($tableName), $table);
     }
 
 }

@@ -2,7 +2,9 @@
 
 namespace Sally\Dashboard\Domain\Statistic\Type\DiagramItem;
 
-class Factory
+use Sally\Dashboard\Domain\Statistic\Interfaces\Type\DiagramItem\FactoryInterface;
+
+class Factory implements FactoryInterface
 {
     public function quantity(string $name, int $quantity): Quantity 
     {
