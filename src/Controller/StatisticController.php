@@ -4,20 +4,20 @@ namespace Sally\Dashboard\Controller;
 
 use App\Http\Controllers\Controller;
 use Illuminate\View\View;
-use Sally\Dashboard\Domain\Statistic\AbstractStatisticFiller;
-use Sally\Dashboard\Domain\Statistic\Interfaces\CompositeInterface;
-use Sally\Dashboard\Domain\Statistic\Interfaces\Type\FactoryInterface;
-use Sally\Dashboard\Helpers\Config;
+use Sally\Dashboard\Domain\Statistic;
+use Sally\Dashboard\Helpers\ConfigHelper;
 
 class StatisticController extends Controller
 {
 	/**
-	 * @var AbstractStatisticFiller
+	 * @var Statistic\AbstractStatisticFiller
 	 */
 	private $filler;
 
-	public function __construct(CompositeInterface $composite, FactoryInterface $factory)
-	{
+	public function __construct(
+		Statistic\Interfaces\CompositeInterface $composite,
+		Statistic\Interfaces\Type\FactoryInterface $factory
+	) {
 		$this->filler = $this->getFiller($composite, $factory);
 	}
 
@@ -27,9 +27,11 @@ class StatisticController extends Controller
         return view('dashboard::statistic', compact('items'));
     }
 
-    private function getFiller(CompositeInterface $composite, FactoryInterface $factory): AbstractStatisticFiller
-    {
-        $statisticHandlerClassName = Config::getStatisticHandler();
+    private function getFiller(
+    	Statistic\Interfaces\CompositeInterface $composite,
+	    Statistic\Interfaces\Type\FactoryInterface $factory
+    ): Statistic\AbstractStatisticFiller {
+        $statisticHandlerClassName = ConfigHelper::getStatisticHandler();
         return new $statisticHandlerClassName($composite, $factory);
     }
 }

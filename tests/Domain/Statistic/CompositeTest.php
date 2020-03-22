@@ -4,7 +4,7 @@ namespace Tests\Domain\Statistic;
 
 use PHPUnit\Framework\TestCase;
 use Sally\Dashboard\Domain\Statistic\Composite;
-use Sally\Dashboard\Domain\Statistic\Type\Text;
+use Sally\Dashboard\Domain\Statistic\Type\Common\Text;
 
 class CompositeTest extends TestCase
 {
@@ -13,7 +13,7 @@ class CompositeTest extends TestCase
      */
     private $composite;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->composite = new Composite();
     }

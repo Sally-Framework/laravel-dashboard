@@ -1,43 +1,32 @@
 <?php
+/**
+ * Created by n0tm
+ * Date: 22.03.2020
+ */
 
 namespace Sally\Dashboard\Domain\Statistic\Type;
 
-use Sally\Dashboard\Domain\Statistic\Interfaces\Type\FactoryInterface;
+use Sally\Dashboard\Domain\Statistic\Interfaces\Type;
 
-class Factory implements FactoryInterface
+class Factory implements Type\FactoryInterface
 {
-    public function text(string $name, $value): Text 
-    {
-        return new Text($name, $value);
-    }
+	/**
+	 * @var Type\Diagram\Item\FactoryInterface
+	 */
+	private $itemFactory;
 
-    public function table(string $name): Table 
-    {
-        return new Table($name);
-    }
+	public function __construct(Type\Diagram\Item\FactoryInterface $itemFactory)
+	{
+		$this->itemFactory = $itemFactory;
+	}
 
-    public function diagramPie(string $name): DiagramPie 
-    {
-        return new DiagramPie($name);
-    }
+	public function createCommon(): Type\Common\FactoryInterface
+	{
+		return new Common\Factory();
+	}
 
-    public function diagramDoughnut(string $name): DiagramDoughnut 
-    {
-        return new DiagramDoughnut($name);
-    }
-
-    public function diagramBarVertical(string $name): DiagramBarVertical 
-    {
-        return new DiagramBarVertical($name);
-    }
-
-    public function diagramBarHorizontal(string $name): DiagramBarHorizontal 
-    {
-        return new DiagramBarHorizontal($name);
-    }
-
-    public function diagramLine(string $name): DiagramLine 
-    {
-        return new DiagramLine($name);
-    }
+	public function createDiagram(): Type\Diagram\FactoryInterface
+	{
+		return new Diagram\Factory($this->itemFactory);
+	}
 }

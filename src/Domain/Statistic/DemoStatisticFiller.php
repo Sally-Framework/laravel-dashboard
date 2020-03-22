@@ -2,43 +2,40 @@
 
 namespace Sally\Dashboard\Domain\Statistic;
 
-use Sally\Dashboard\Domain\Statistic\Interfaces\CompositeInterface;
-use Sally\Dashboard\Domain\Statistic\Interfaces\Type\FactoryInterface;
-use Sally\Dashboard\Domain\Statistic\Type\DiagramPie;
-use Sally\Dashboard\Domain\Statistic\Type\Table;
+use Sally\Dashboard\Domain\Statistic\Type;
 
 class DemoStatisticFiller extends AbstractStatisticFiller
 {
-    protected function fill(CompositeInterface $statistic, FactoryInterface $factory): void {
+    protected function fill(): void {
         // Генерация текстовых карточек
         $textCardsLimit = 3;
         for ($i = 0; $i < $textCardsLimit; $i++) {
-            $statistic->add(
-                $factory->text($this->getRandomLoremIpsum(), random_int(0, 1000))
+            $this->addStatistic(
+                $this->getFactory()->createCommon()->text($this->getRandomLoremIpsum(), random_int(0, 1000))
             );
         }
 
         // Генерация таблиц
         $smallTableRowsLimit = random_int(5, 15);
         $smallTable = $this->getFilledTableWithRandomDataByRowsCount(
-            $factory->table($this->getRandomLoremIpsum()),
+	        $this->getFactory()->createCommon()->table($this->getRandomLoremIpsum()),
             $smallTableRowsLimit
         );
-        $statistic->add($smallTable);
+        $this->addStatistic($smallTable);
 
         $bigTableRowsLimit = random_int(100, 200);
         $bigTable = $this->getFilledTableWithRandomDataByRowsCount(
-            $factory->table($this->getRandomLoremIpsum()),
+            $this->getFactory()->createCommon()->table($this->getRandomLoremIpsum()),
             $bigTableRowsLimit
         );
-        $statistic->add($bigTable);
+        $this->addStatistic($bigTable);
 
         // Генерация графика пирога
 	    $pieDiagramLimit = 3;
 	    for ($i = 0; $i < $pieDiagramLimit; $i++) {
-		    $statistic->add(
+		    $this->addStatistic(
 			    $this->getFilledPieDiagramByValuesRange(
-				    $factory->diagramPie($this->getRandomLoremIpsum()),
+				    $this->getFactory()->createDiagram()->pie($this->getRandomLoremIpsum()),
 				    2,
 				    5
 			    )
@@ -46,7 +43,7 @@ class DemoStatisticFiller extends AbstractStatisticFiller
 	    }
     }
 
-    private function getFilledPieDiagramByValuesRange(DiagramPie $diagram, int $start, int $stop): DiagramPie
+    private function getFilledPieDiagramByValuesRange(Type\Diagram\Pie $diagram, int $start, int $stop): Type\Diagram\Pie
     {
 	    $maxValues = random_int($start, $stop);
 	    for ($i = 0; $i < $maxValues; $i++) {
@@ -56,7 +53,7 @@ class DemoStatisticFiller extends AbstractStatisticFiller
         return $diagram;
     }
 
-    private function getFilledTableWithRandomDataByRowsCount(Table $table, int $rowsCount): Table
+    private function getFilledTableWithRandomDataByRowsCount(Type\Common\Table $table, int $rowsCount): Type\Common\Table
     {
         $table->setHeaders([
             '#',

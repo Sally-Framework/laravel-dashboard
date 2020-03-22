@@ -2,36 +2,47 @@
 
 namespace Sally\Dashboard\Domain\Statistic;
 
-use Sally\Dashboard\Domain\Statistic\Interfaces\CompositeInterface;
-use Sally\Dashboard\Domain\Statistic\Interfaces\Type\FactoryInterface;
-use Sally\Dashboard\Domain\Statistic\Type\AbstractType;
+use Sally\Dashboard\Domain\Statistic\Interfaces;
+use Sally\Dashboard\Domain\Statistic\Type;
 
 abstract class AbstractStatisticFiller
 {
     /**
-     * @var CompositeInterface
+     * @var Interfaces\CompositeInterface
      */
     private $statistic;
 
     /**
-     * @var FactoryInterface
+     * @var Interfaces\Type\FactoryInterface
      */
     private $factory;
 
-    public function __construct(CompositeInterface $statistic, FactoryInterface $factory)
-    {
+    public function __construct(
+	    Interfaces\CompositeInterface $statistic,
+	    Interfaces\Type\FactoryInterface $typeFactory
+    ) {
 	    $this->statistic = $statistic;
-	    $this->factory   = $factory;
+	    $this->factory   = $typeFactory;
     }
 
 	/**
-	 * @return AbstractType[]
+	 * @return Type\AbstractType[]
 	 */
     public function getFilled(): array
     {
-    	$this->fill($this->statistic, $this->factory);
+    	$this->fill();
         return $this->statistic->getItems();
     }
 
-    abstract protected function fill(CompositeInterface $statistic, FactoryInterface $factory): void;
+    protected function addStatistic(Type\AbstractType $statistic): void
+    {
+    	$this->statistic->add($statistic);
+    }
+
+	protected function getFactory(): Interfaces\Type\FactoryInterface
+	{
+		return $this->factory;
+	}
+
+	abstract protected function fill(): void;
 }

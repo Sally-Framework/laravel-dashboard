@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Domain\Statistic\Type;
+namespace Tests\Domain\Statistic\Type\Common;
 
 use PHPUnit\Framework\TestCase;
 use Sally\Dashboard\Domain\Statistic\Type\AbstractType;

@@ -8,45 +8,29 @@ namespace Tests\Domain\Statistic;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Sally\Dashboard\Domain\Statistic\Composite;
-use Sally\Dashboard\Domain\Statistic\DemoStatisticFiller;
-use Sally\Dashboard\Domain\Statistic\Interfaces\CompositeInterface;
-use Sally\Dashboard\Domain\Statistic\Interfaces\Type\FactoryInterface;
-use Sally\Dashboard\Domain\Statistic\Type\Factory;
+use Sally\Dashboard\Domain\Statistic;
 
 class DemoStatisticFillerTest extends TestCase
 {
 	public function testGetFilled(): void
 	{
-		/** @var Factory|MockObject $factory */
-		$factory   = $this->createMock(FactoryInterface::class);
-		/** @var Composite|MockObject $statistic */
-		$statistic = $this->createMock(CompositeInterface::class);
+		/** @var Statistic\Type\Factory|MockObject $factory */
+		$factory   = $this->createMock(Statistic\Interfaces\Type\FactoryInterface::class);
+		/** @var Statistic\Composite|MockObject $statistic */
+		$statistic = $this->createMock(Statistic\Interfaces\CompositeInterface::class);
 
-		// Генерация карточек
-		$textCardLimitCount = 3;
-		$factory->expects($this->exactly($textCardLimitCount))
-			->method('text')
-			->withAnyParameters();
+		$commonStatisticItemsCount  = 5;
+		$factory->expects($this->exactly($commonStatisticItemsCount))->method('createCommon');
 
-		// Генерация таблиц
-		$tablesLimitCount = 2;
-		$factory->expects($this->exactly($tablesLimitCount))
-			->method('table')
-			->withAnyParameters();
+		$diagramStatisticItemsCount = 3;
+		$factory->expects($this->exactly($diagramStatisticItemsCount))->method('createDiagram');
 
-		// Генерация pie графиков
-		$pieDiagramLimit = 3;
-		$factory->expects($this->exactly($pieDiagramLimit))
-			->method('diagramPie')
-			->withAnyParameters();
-
-		$totalStatisticItemsCount = $textCardLimitCount + $tablesLimitCount + $pieDiagramLimit;
+		$totalStatisticItemsCount = $commonStatisticItemsCount + $diagramStatisticItemsCount;
 		$statistic->expects($this->exactly($totalStatisticItemsCount))
 			->method('add')
 			->withAnyParameters();
 
-		$demoHandler = new DemoStatisticFiller($statistic, $factory);
+		$demoHandler = new Statistic\DemoStatisticFiller($statistic, $factory);
 		$demoHandler->getFilled();
 	}
 }

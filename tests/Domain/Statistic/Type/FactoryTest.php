@@ -1,39 +1,40 @@
 <?php
+/**
+ * Created by n0tm
+ * Date: 23.03.2020
+ */
 
-namespace Tests\Domain\Statistic\Type;
+namespace Tests\Domain\Statistic;
 
 use PHPUnit\Framework\TestCase;
-use Sally\Dashboard\Domain\Statistic\Interfaces\Type\FactoryInterface;
 use Sally\Dashboard\Domain\Statistic\Type;
+use Sally\Dashboard\Domain\Statistic\Interfaces;
 
 class FactoryTest extends TestCase
 {
-    /**
-     * @var FactoryInterface
-     */
-    private $factory;
+	/**
+	 * @var Interfaces\Type\FactoryInterface
+	 */
+	private $typeFactory;
 
-    public function setUp(): void
-    {
-        $this->factory = new Type\Factory();
-    }
+	/**
+	 * @var Interfaces\Type\Diagram\Item\FactoryInterface
+	 */
+	private $itemFactory;
 
-    public function testTextGeneration(): void
-    {
-        $textName  = '::some text name::';
-        $textValue = '::some text value::';
+	public function setUp(): void
+	{
+		$this->itemFactory = new Type\Diagram\Item\Factory();
+		$this->typeFactory = new Type\Factory($this->itemFactory);
+	}
 
-        $text = $this->factory->text($textName, $textValue);
+	public function testCreateCommon(): void
+	{
+		$this->assertEquals(new Type\Common\Factory(), $this->typeFactory->createCommon());
+	}
 
-        $this->assertEquals(new Type\Text($textName, $textValue), $text);
-    }
-
-    public function testTableGeneration(): void
-    {
-        $tableName = '::some text name::';
-        $table = $this->factory->table($tableName);
-
-	    $this->assertEquals(new Type\Table($tableName), $table);
-    }
-
+	public function testCreateDiagram(): void
+	{
+		$this->assertEquals(new Type\Diagram\Factory($this->itemFactory), $this->typeFactory->createDiagram());
+	}
 }

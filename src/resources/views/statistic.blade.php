@@ -19,12 +19,12 @@ use Sally\Dashboard\Domain\Statistic\Type;
         {{-- Начало секции текстовых карточек --}}
         <div class="row justify-content-center pb-5">
             @foreach($items as $item)
-                @if ($item instanceof Type\Text)
-                    <?php /** @var Type\Text $item */ ?>
+                @if ($item instanceof Type\Common\Text)
+                    <?php /** @var Type\Common\Text $item */ ?>
                     @component(
                         'dashboard::component.statistic.card-text',
                         [
-                            'name' => $item->getName(),
+                            'name'  => $item->getName(),
                             'value' => $item->getValue()
                         ]
                     )
@@ -36,16 +36,16 @@ use Sally\Dashboard\Domain\Statistic\Type;
 
         {{-- Начало секции таблиц --}}
         @foreach($items as $item)
-            @if ($item instanceof Type\Table)
+            @if ($item instanceof Type\Common\Table)
                 <div class="table-responsive">
                     <div class="pb-5">
-                    <?php /** @var Type\Table $item */ ?>
+                    <?php /** @var Type\Common\Table $item */ ?>
                     @component(
                         'dashboard::component.statistic.table',
                         [
-                            'name' => $item->getName(),
+                            'name'    => $item->getName(),
                             'headers' => $item->getHeaders(),
-                            'rows' => $item->getRows(),
+                            'rows'    => $item->getRows(),
                         ]
                     )
                     @endcomponent
@@ -58,15 +58,15 @@ use Sally\Dashboard\Domain\Statistic\Type;
         {{-- Начало секции pie chart'ов --}}
         <div class="row justify-content-center pb-5">
             @foreach($items as $diagram)
-                @if ($diagram instanceof Type\DiagramPie)
+                @if ($diagram instanceof Type\Diagram\Pie)
                     <?php
-                    /** @var Type\DiagramPie $diagram */
-                    /** @var Type\DiagramItem\Quantity[] $diagramItems */
+                    /** @var Type\Diagram\Pie $diagram */
+                    /** @var Type\Diagram\Item\Quantity[] $diagramItems */
                     $diagramItems = $diagram->getItems();
-                    $values = collect($diagramItems)->map(function (Type\DiagramItem\Quantity $diagramItem) {
+                    $values = collect($diagramItems)->map(function (Type\Diagram\Item\Quantity $diagramItem) {
                         return $diagramItem->getValue();
                     });
-                    $labels = collect($diagramItems)->map(function (Type\DiagramItem\Quantity $diagramItem) {
+                    $labels = collect($diagramItems)->map(function (Type\Diagram\Item\Quantity $diagramItem) {
                         return $diagramItem->getName();
                     });
                     ?>

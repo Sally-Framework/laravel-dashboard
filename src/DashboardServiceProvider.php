@@ -3,11 +3,8 @@
 namespace Sally\Dashboard;
 
 use Illuminate\Support\ServiceProvider;
-use Sally\Dashboard\Domain\Statistic\Composite;
-use Sally\Dashboard\Domain\Statistic\Interfaces\CompositeInterface;
-use Sally\Dashboard\Domain\Statistic\Interfaces\Type\FactoryInterface;
-use Sally\Dashboard\Domain\Statistic\Type\Factory;
-use Sally\Dashboard\Helpers\Config;
+use Sally\Dashboard\Domain\Statistic;
+use Sally\Dashboard\Helpers\ConfigHelper;
 use Yoeunes\Toastr\ToastrServiceProvider;
 
 class DashboardServiceProvider extends ServiceProvider
@@ -20,8 +17,26 @@ class DashboardServiceProvider extends ServiceProvider
      */
     public function register()
     {
-	    $this->app->bind(CompositeInterface::class, Composite::class);
-	    $this->app->bind(FactoryInterface::class, Factory::class);
+	    $this->app->bind(
+	    	Statistic\Interfaces\CompositeInterface::class,
+		    Statistic\Composite::class
+	    );
+	    $this->app->bind(
+	    	Statistic\Interfaces\Type\FactoryInterface::class,
+		    Statistic\Type\Factory::class
+	    );
+	    $this->app->bind(
+		    Statistic\Interfaces\Type\Common\FactoryInterface::class,
+		    Statistic\Type\Common\Factory::class
+	    );
+	    $this->app->bind(
+		    Statistic\Interfaces\Type\Diagram\FactoryInterface::class,
+		    Statistic\Type\Diagram\Factory::class
+	    );
+	    $this->app->bind(
+		    Statistic\Interfaces\Type\Diagram\Item\FactoryInterface::class,
+		    Statistic\Type\Diagram\Item\Factory::class
+	    );
 
         $this->app->make('Sally\Dashboard\Controller\MainController');
         $this->app->make('Sally\Dashboard\Controller\StatisticController');
@@ -38,7 +53,7 @@ class DashboardServiceProvider extends ServiceProvider
     {
         include __DIR__.'/routes.php';
 
-        $configFileName = Config::CONFIG_FILE_NAME;
+        $configFileName = ConfigHelper::CONFIG_FILE_NAME;
         $this->publishes([
             __DIR__.'/config.php' => config_path("{$configFileName}.php"),
         ], 'config');
