@@ -6,11 +6,11 @@ class ConfigHelper
 {
     public const CONFIG_FILE_NAME = 'dashboard';
 
-    private const KEY_STATISTIC_HANDLER = 'statistic_handler';
+    private const KEY_STATISTIC_FILLER = 'statistic_filler';
 
     public static function getStatisticHandler(): string
     {
-        return self::getConfigValueByKey(self::KEY_STATISTIC_HANDLER);
+        return self::getConfigValueByKey(self::KEY_STATISTIC_FILLER);
     }
 
     private static function getConfigValueByKey(string $key): string
