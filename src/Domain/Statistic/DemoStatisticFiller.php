@@ -35,10 +35,13 @@ class DemoStatisticFiller extends AbstractStatisticFiller
 	    $pieDiagramLimit = 3;
 	    for ($i = 0; $i < $pieDiagramLimit; $i++) {
 		    $this->addStatistic(
-			    $this->getFilledQuantityDiagramByValuesRange(
+			    $this->getFilledQuantityDiagram(
 				    $this->getFactory()->createDiagram()->pie($this->getRandomLoremIpsum()),
-				    2,
-				    5
+				    [
+				        $this->getRandomLoremIpsum() => random_int(200, 1000),
+				        $this->getRandomLoremIpsum() => random_int(200, 1000),
+				        $this->getRandomLoremIpsum() => random_int(200, 1000),
+                    ]
 			    )
 		    );
 	    }
@@ -46,23 +49,45 @@ class DemoStatisticFiller extends AbstractStatisticFiller
         $doughnutDiagramLimit = 3;
         for ($i = 0; $i < $doughnutDiagramLimit; $i++) {
             $this->addStatistic(
-                $this->getFilledQuantityDiagramByValuesRange(
+                $this->getFilledQuantityDiagram(
                     $this->getFactory()->createDiagram()->doughnut($this->getRandomLoremIpsum()),
-                    2,
-                    5
+                    [
+                        $this->getRandomLoremIpsum() => random_int(200, 1000),
+                        $this->getRandomLoremIpsum() => random_int(200, 1000),
+                        $this->getRandomLoremIpsum() => random_int(200, 1000),
+                    ]
                 )
             );
         }
+
+        $this->addStatistic(
+            $this->getFilledQuantityGroupDiagram(
+                $this->getFactory()->createDiagram()->line($this->getRandomLoremIpsum()),
+                $this->getDatasetForLineDiagram()
+            )
+        );
     }
 
-    private function getFilledQuantityDiagramByValuesRange(Type\Diagram\AbstractQuantity $diagram, int $start, int $stop): Type\Diagram\AbstractQuantity
+    private function getFilledQuantityDiagram(Type\Diagram\AbstractQuantity $diagram, array $data): Type\Diagram\AbstractQuantity
     {
-        $maxValues = random_int($start, $stop);
-        for ($i = 0; $i < $maxValues; $i++) {
-            $diagram->addItem($this->getRandomLoremIpsum(), random_int(200, 1000));
+        $filledDiagram = clone $diagram;
+        foreach ($data as $itemName => $itemValue) {
+            $filledDiagram->addItem($itemName, $itemValue);
         }
 
-        return $diagram;
+        return $filledDiagram;
+    }
+
+    private function getFilledQuantityGroupDiagram(Type\Diagram\AbstractGroupQuantity $diagram, array $data): Type\Diagram\AbstractGroupQuantity
+    {
+        $filledDiagram = clone $diagram;
+        foreach ($data as $indicator => $itemValues) {
+            foreach ($itemValues as $itemName => $itemValue) {
+                $filledDiagram->addItem($itemName, $itemValue, $indicator);
+            }
+        }
+
+        return $filledDiagram;
     }
 
     private function getFilledTableWithRandomDataByRowsCount(Type\Common\Table $table, int $rowsCount): Type\Common\Table
@@ -86,6 +111,47 @@ class DemoStatisticFiller extends AbstractStatisticFiller
         }
 
         return $table;
+    }
+
+    private function getDatasetForLineDiagram(): array
+    {
+        $itemLabelsForLineDiagram = [
+            $this->getRandomLoremIpsum(),
+            $this->getRandomLoremIpsum(),
+            $this->getRandomLoremIpsum()
+        ];
+        return [
+            2015 => [
+                $itemLabelsForLineDiagram[0] => random_int(200, 1000),
+                $itemLabelsForLineDiagram[1] => random_int(200, 1000),
+                $itemLabelsForLineDiagram[2] => random_int(200, 1000),
+            ],
+            2016 => [
+                $itemLabelsForLineDiagram[0] => random_int(200, 1000),
+                $itemLabelsForLineDiagram[1] => random_int(200, 1000),
+                $itemLabelsForLineDiagram[2] => random_int(200, 1000),
+            ],
+            2017 => [
+                $itemLabelsForLineDiagram[0] => random_int(200, 1000),
+                $itemLabelsForLineDiagram[1] => random_int(200, 1000),
+                $itemLabelsForLineDiagram[2] => random_int(200, 1000),
+            ],
+            2018 => [
+                $itemLabelsForLineDiagram[0] => random_int(200, 1000),
+                $itemLabelsForLineDiagram[1] => random_int(200, 1000),
+                $itemLabelsForLineDiagram[2] => random_int(200, 1000),
+            ],
+            2019 => [
+                $itemLabelsForLineDiagram[0] => random_int(200, 1000),
+                $itemLabelsForLineDiagram[1] => random_int(200, 1000),
+                $itemLabelsForLineDiagram[2] => random_int(200, 1000),
+            ],
+            2020 => [
+                $itemLabelsForLineDiagram[0] => random_int(200, 1000),
+                $itemLabelsForLineDiagram[1] => random_int(200, 1000),
+                $itemLabelsForLineDiagram[2] => random_int(200, 1000),
+            ]
+        ];
     }
 
     private function getRandomLoremIpsum(): string

@@ -117,5 +117,31 @@ use Sally\Dashboard\Domain\Statistic\Type;
         </div>
         {{-- Конец секции doughnut chart'ов --}}
 
+        {{-- Начало секции line chart'ов --}}
+        <div class="row justify-content-center pb-5">
+            @foreach($items as $diagram)
+                @if ($diagram instanceof Type\Diagram\Line)
+                    <?php
+                    /** @var Type\Diagram\Line $diagram */
+                    /** @var Type\Diagram\Item\QuantityGroup[] $diagramItems */
+                    $diagramItems = $diagram->getItems();
+                    $data = [];
+                    foreach ($diagramItems as $diagramItem) {
+                        $data[$diagramItem->getIndicator()][$diagramItem->getName()] = $diagramItem->getValue();
+                    }
+                    ?>
+                    @component(
+                        'dashboard::component.statistic.line-chart',
+                        [
+                            'name' => $diagram->getName(),
+                            'data' => $data,
+                        ]
+                    )
+                    @endcomponent
+                @endif
+            @endforeach
+        </div>
+        {{-- Конец секции line chart'ов --}}
+
     </div>
 @endsection
