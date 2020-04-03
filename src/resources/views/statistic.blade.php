@@ -84,7 +84,38 @@ use Sally\Dashboard\Domain\Statistic\Type;
                 @endif
             @endforeach
         </div>
-        {{-- Конец секции таблиц --}}
+        {{-- Конец секции pie chart'ов --}}
+
+        {{-- Начало секции doughnut chart'ов --}}
+        <div class="row justify-content-center pb-5">
+            @foreach($items as $diagram)
+                @if ($diagram instanceof Type\Diagram\Doughnut)
+                    <?php
+                    /** @var Type\Diagram\Doughnut $diagram */
+                    /** @var Type\Diagram\Item\Quantity[] $diagramItems */
+                    $diagramItems = $diagram->getItems();
+                    $values = collect($diagramItems)->map(function (Type\Diagram\Item\Quantity $diagramItem) {
+                        return $diagramItem->getValue();
+                    });
+                    $labels = collect($diagramItems)->map(function (Type\Diagram\Item\Quantity $diagramItem) {
+                        return $diagramItem->getName();
+                    });
+                    ?>
+                    <div class="col-md-6 mb-5">
+                        @component(
+                            'dashboard::component.statistic.doughnut-chart',
+                            [
+                                'name'   => $diagram->getName(),
+                                'labels' => $labels,
+                                'values' => $values,
+                            ]
+                        )
+                        @endcomponent
+                    </div>
+                @endif
+            @endforeach
+        </div>
+        {{-- Конец секции doughnut chart'ов --}}
 
     </div>
 @endsection

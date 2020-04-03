@@ -9,7 +9,7 @@ $generatedViewId = uniqid();
 @component('dashboard::component.card', ['header' => $name])
     @slot('body')
         @component('dashboard::component.statistic.abstract-diagram-template', [
-            'diagramType' => 'pie',
+            'diagramType' => 'doughnut',
             'labels' => $labels,
             'values' => $values
         ])

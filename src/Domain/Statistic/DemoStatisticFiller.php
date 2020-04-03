@@ -6,7 +6,8 @@ use Sally\Dashboard\Domain\Statistic\Type;
 
 class DemoStatisticFiller extends AbstractStatisticFiller
 {
-    protected function fill(): void {
+    protected function fill(): void
+    {
         // Генерация текстовых карточек
         $textCardsLimit = 3;
         for ($i = 0; $i < $textCardsLimit; $i++) {
@@ -34,21 +35,32 @@ class DemoStatisticFiller extends AbstractStatisticFiller
 	    $pieDiagramLimit = 3;
 	    for ($i = 0; $i < $pieDiagramLimit; $i++) {
 		    $this->addStatistic(
-			    $this->getFilledPieDiagramByValuesRange(
+			    $this->getFilledQuantityDiagramByValuesRange(
 				    $this->getFactory()->createDiagram()->pie($this->getRandomLoremIpsum()),
 				    2,
 				    5
 			    )
 		    );
 	    }
+
+        $doughnutDiagramLimit = 3;
+        for ($i = 0; $i < $doughnutDiagramLimit; $i++) {
+            $this->addStatistic(
+                $this->getFilledQuantityDiagramByValuesRange(
+                    $this->getFactory()->createDiagram()->doughnut($this->getRandomLoremIpsum()),
+                    2,
+                    5
+                )
+            );
+        }
     }
 
-    private function getFilledPieDiagramByValuesRange(Type\Diagram\Pie $diagram, int $start, int $stop): Type\Diagram\Pie
+    private function getFilledQuantityDiagramByValuesRange(Type\Diagram\AbstractQuantity $diagram, int $start, int $stop): Type\Diagram\AbstractQuantity
     {
-	    $maxValues = random_int($start, $stop);
-	    for ($i = 0; $i < $maxValues; $i++) {
-		    $diagram->addItem($this->getRandomLoremIpsum(), random_int(200, 1000));
-	    }
+        $maxValues = random_int($start, $stop);
+        for ($i = 0; $i < $maxValues; $i++) {
+            $diagram->addItem($this->getRandomLoremIpsum(), random_int(200, 1000));
+        }
 
         return $diagram;
     }
