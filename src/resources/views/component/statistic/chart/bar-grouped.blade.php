@@ -9,7 +9,7 @@ $generatedViewId = uniqid();
 @component('dashboard::component.card', ['header' => $name])
     @slot('body')
         @component('dashboard::component.statistic.chart.diagram-quantity-group', [
-            'diagramType' => 'line',
+            'diagramType' => 'bar',
             'data'        => $data,
             'colorType'   => $colorType,
         ])

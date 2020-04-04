@@ -63,7 +63,7 @@ class DemoStatisticFiller extends AbstractStatisticFiller
         $this->addStatistic(
             $this->getFilledQuantityGroupDiagram(
                 $this->getFactory()->createDiagram()->line($this->getRandomLoremIpsum()),
-                $this->getDatasetForLineDiagram()
+                $this->getDatasetForGroupQuantityDiagram()
             )
         );
 
@@ -90,6 +90,13 @@ class DemoStatisticFiller extends AbstractStatisticFiller
                     $this->getRandomLoremIpsum() => random_int(200, 1000),
                     $this->getRandomLoremIpsum() => random_int(200, 1000),
                 ]
+            )
+        );
+
+        $this->addStatistic(
+            $this->getFilledQuantityGroupDiagram(
+                $this->getFactory()->createDiagram()->barGrouped($this->getRandomLoremIpsum()),
+                $this->getDatasetForGroupQuantityDiagram()
             )
         );
     }
@@ -139,7 +146,7 @@ class DemoStatisticFiller extends AbstractStatisticFiller
         return $table;
     }
 
-    private function getDatasetForLineDiagram(): array
+    private function getDatasetForGroupQuantityDiagram(): array
     {
         $itemLabelsForLineDiagram = [
             $this->getRandomLoremIpsum(),

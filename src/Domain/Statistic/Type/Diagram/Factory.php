@@ -27,6 +27,11 @@ class Factory implements Type\Diagram\FactoryInterface
 		return new BarVertical($name, $this->factory);
 	}
 
+    public function barGrouped(string $name): Diagram\BarGrouped
+    {
+        return new BarGrouped($name, $this->factory);
+    }
+
 	public function doughnut(string $name): Diagram\Doughnut
 	{
 		return new Doughnut($name, $this->factory);
