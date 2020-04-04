@@ -2,6 +2,7 @@
 /** @var string $diagramType */
 /** @var string[] $labels */
 /** @var int[] $values */
+/** @var array $options */
 
 $generatedViewId = uniqid();
 ?>
@@ -14,17 +15,20 @@ $generatedViewId = uniqid();
     for (var i = 0; i < values.length; i++) {
         colors.push('#' + Math.floor(Math.random()*16777215).toString(16));
     }
-
-    new Chart(document.getElementById("{{ $generatedViewId }}"), {
-        type: '{{ $diagramType }}',
-        data: {
-            labels: labels,
-            datasets: [{
+    var options = {!! isset($options) ? json_encode($options) : '{}' !!};
+    var diagram = {
+        'type': '{{ $diagramType }}',
+        'data': {
+            'labels': labels,
+            'datasets': [{
                 backgroundColor: colors,
                 data: values
-            }]
+            }],
         },
-    });
+        'options': options
+    };
+
+    new Chart(document.getElementById("{{ $generatedViewId }}"), diagram);
 </script>
 
 

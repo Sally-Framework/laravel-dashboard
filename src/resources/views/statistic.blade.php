@@ -22,7 +22,7 @@ use Sally\Dashboard\Domain\Statistic\Type;
                 @if ($item instanceof Type\Common\Text)
                     <?php /** @var Type\Common\Text $item */ ?>
                     @component(
-                        'dashboard::component.statistic.card-text',
+                        'dashboard::component.statistic.common.card-text',
                         [
                             'name'  => $item->getName(),
                             'value' => $item->getValue()
@@ -41,7 +41,7 @@ use Sally\Dashboard\Domain\Statistic\Type;
                     <div class="pb-5">
                     <?php /** @var Type\Common\Table $item */ ?>
                     @component(
-                        'dashboard::component.statistic.table',
+                        'dashboard::component.statistic.common.table',
                         [
                             'name'    => $item->getName(),
                             'headers' => $item->getHeaders(),
@@ -72,7 +72,7 @@ use Sally\Dashboard\Domain\Statistic\Type;
                     ?>
                     <div class="col-md-6 mb-5">
                         @component(
-                            'dashboard::component.statistic.pie-chart',
+                            'dashboard::component.statistic.chart.pie',
                             [
                                 'name'   => $diagram->getName(),
                                 'labels' => $labels,
@@ -103,7 +103,7 @@ use Sally\Dashboard\Domain\Statistic\Type;
                     ?>
                     <div class="col-md-6 mb-5">
                         @component(
-                            'dashboard::component.statistic.doughnut-chart',
+                            'dashboard::component.statistic.chart.doughnut',
                             [
                                 'name'   => $diagram->getName(),
                                 'labels' => $labels,
@@ -131,7 +131,7 @@ use Sally\Dashboard\Domain\Statistic\Type;
                     }
                     ?>
                     @component(
-                        'dashboard::component.statistic.line-chart',
+                        'dashboard::component.statistic.chart.line',
                         [
                             'name' => $diagram->getName(),
                             'data' => $data,
@@ -142,6 +142,43 @@ use Sally\Dashboard\Domain\Statistic\Type;
             @endforeach
         </div>
         {{-- Конец секции line chart'ов --}}
+
+        {{-- Начало секции horizontal bar chart'ов --}}
+        <div class="row justify-content-center pb-5">
+            @foreach($items as $diagram)
+                @if ($diagram instanceof Type\Diagram\BarHorizontal)
+                    <?php
+                    /** @var Type\Diagram\BarHorizontal $diagram */
+                    /** @var Type\Diagram\Item\Quantity[] $diagramItems */
+                    $diagramItems = $diagram->getItems();
+                    $values = collect($diagramItems)->map(function (Type\Diagram\Item\Quantity $diagramItem) {
+                        return $diagramItem->getValue();
+                    });
+                    $labels = collect($diagramItems)->map(function (Type\Diagram\Item\Quantity $diagramItem) {
+                        return $diagramItem->getName();
+                    });
+                    ?>
+                    @component(
+                        'dashboard::component.statistic.chart.bar-horizontal',
+                        [
+                            'name'   => $diagram->getName(),
+                            'labels' => $labels,
+                            'values' => $values,
+                            'options' => [
+                                'legend' => [
+                                    'display' => false,
+                                ],
+                                'tooltips' => [
+                                    'enabled' => false,
+                                ]
+                            ],
+                        ]
+                    )
+                    @endcomponent
+                @endif
+            @endforeach
+        </div>
+        {{-- Конец секции horizontal bar chart'ов --}}
 
     </div>
 @endsection

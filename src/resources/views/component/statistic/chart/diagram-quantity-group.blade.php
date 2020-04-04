@@ -31,7 +31,7 @@ $generatedViewId = uniqid();
         });
     });
 
-    let diagram = {
+    var diagram = {
         'type': '{{ $diagramType }}',
         'data': {
             'labels': labels,
@@ -40,7 +40,6 @@ $generatedViewId = uniqid();
     };
 
     new Chart(document.getElementById("{{ $generatedViewId }}"), diagram);
-    console.log(diagram);
 </script>
 
 

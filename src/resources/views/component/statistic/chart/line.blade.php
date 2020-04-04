@@ -7,7 +7,7 @@ $generatedViewId = uniqid();
 
 @component('dashboard::component.card', ['header' => $name])
     @slot('body')
-        @component('dashboard::component.statistic.diagram-quantity-group', [
+        @component('dashboard::component.statistic.chart.diagram-quantity-group', [
             'diagramType' => 'line',
             'data'        => $data,
         ])

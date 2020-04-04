@@ -22,7 +22,7 @@ class DemoStatisticFillerTest extends TestCase
 		$commonStatisticItemsCount  = 5;
 		$factory->expects($this->exactly($commonStatisticItemsCount))->method('createCommon');
 
-		$diagramStatisticItemsCount = 7;
+		$diagramStatisticItemsCount = 8;
 		$factory->expects($this->exactly($diagramStatisticItemsCount))->method('createDiagram');
 
 		$totalStatisticItemsCount = $commonStatisticItemsCount + $diagramStatisticItemsCount;

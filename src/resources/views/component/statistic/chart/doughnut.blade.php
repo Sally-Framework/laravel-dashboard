@@ -2,14 +2,12 @@
 /** @var string $name */
 /** @var string[] $labels */
 /** @var int[] $values */
-
-$generatedViewId = uniqid();
 ?>
 
 @component('dashboard::component.card', ['header' => $name])
     @slot('body')
-        @component('dashboard::component.statistic.diagram-quantity', [
-            'diagramType' => 'pie',
+        @component('dashboard::component.statistic.chart.diagram-quantity', [
+            'diagramType' => 'doughnut',
             'labels'      => $labels,
             'values'      => $values
         ])
