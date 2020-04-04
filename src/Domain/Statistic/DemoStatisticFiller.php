@@ -79,6 +79,19 @@ class DemoStatisticFiller extends AbstractStatisticFiller
                 ]
             )
         );
+
+        $this->addStatistic(
+            $this->getFilledQuantityDiagram(
+                $this->getFactory()->createDiagram()->barVertical($this->getRandomLoremIpsum()),
+                [
+                    $this->getRandomLoremIpsum() => random_int(200, 1000),
+                    $this->getRandomLoremIpsum() => random_int(200, 1000),
+                    $this->getRandomLoremIpsum() => random_int(200, 1000),
+                    $this->getRandomLoremIpsum() => random_int(200, 1000),
+                    $this->getRandomLoremIpsum() => random_int(200, 1000),
+                ]
+            )
+        );
     }
 
     private function getFilledQuantityDiagram(Type\Diagram\AbstractQuantity $diagram, array $data): Type\Diagram\AbstractQuantity

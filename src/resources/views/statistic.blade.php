@@ -180,5 +180,42 @@ use Sally\Dashboard\Domain\Statistic\Type;
         </div>
         {{-- Конец секции horizontal bar chart'ов --}}
 
+        {{-- Начало секции vertical bar chart'ов --}}
+        <div class="row justify-content-center pb-5">
+            @foreach($items as $diagram)
+                @if ($diagram instanceof Type\Diagram\BarVertical)
+                    <?php
+                    /** @var Type\Diagram\BarVertical $diagram */
+                    /** @var Type\Diagram\Item\Quantity[] $diagramItems */
+                    $diagramItems = $diagram->getItems();
+                    $values = collect($diagramItems)->map(function (Type\Diagram\Item\Quantity $diagramItem) {
+                        return $diagramItem->getValue();
+                    });
+                    $labels = collect($diagramItems)->map(function (Type\Diagram\Item\Quantity $diagramItem) {
+                        return $diagramItem->getName();
+                    });
+                    ?>
+                    @component(
+                        'dashboard::component.statistic.chart.bar-vertical',
+                        [
+                            'name'   => $diagram->getName(),
+                            'labels' => $labels,
+                            'values' => $values,
+                            'options' => [
+                                'legend' => [
+                                    'display' => false,
+                                ],
+                                'tooltips' => [
+                                    'enabled' => false,
+                                ]
+                            ],
+                        ]
+                    )
+                    @endcomponent
+                @endif
+            @endforeach
+        </div>
+        {{-- Конец секции vertical bar chart'ов --}}
+
     </div>
 @endsection
