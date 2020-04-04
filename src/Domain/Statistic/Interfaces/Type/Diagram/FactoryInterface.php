@@ -12,6 +12,7 @@ interface FactoryInterface
 {
 	public function barHorizontal(string $name): Diagram\BarHorizontal;
 	public function barVertical(string $name): Diagram\BarVertical;
+	public function barGrouped(string $name): Diagram\BarGrouped;
 	public function doughnut(string $name): Diagram\Doughnut;
 	public function line(string $name): Diagram\Line;
 	public function pie(string $name): Diagram\Pie;

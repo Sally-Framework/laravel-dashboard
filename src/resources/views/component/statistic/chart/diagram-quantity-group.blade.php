@@ -1,6 +1,7 @@
 <?php
 /** @var string $diagramType */
 /** @var array[] $data */
+/** @var string $colorType */
 
 $generatedViewId = uniqid();
 ?>
@@ -26,7 +27,7 @@ $generatedViewId = uniqid();
         datasets.push({
             'data': items,
             'label': itemName,
-            'borderColor': '#' + Math.floor(Math.random()*16777215).toString(16),
+            '{{ $colorType }}': '#' + Math.floor(Math.random()*16777215).toString(16),
             'fill': false
         });
     });
