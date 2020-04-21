@@ -2,27 +2,28 @@
 <?php /** @var string[] $headers */ ?>
 <?php /** @var string[] $rows */ ?>
 
-@component('dashboard::component.card', ['header' => $name])
-    @slot('body')
-        <div style="max-height: 400px; overflow-y: auto;">
-            <table class="table table-hover">
-                <thead>
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">{{ $name }}</h3>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body no-padding" style="max-height: 700px; overflow-y: auto;">
+        <table class="table">
+            <tbody>
+            <tr>
+                @foreach($headers as $header)
+                    <th>{{ $header }}</th>
+                @endforeach
+            </tr>
+            @foreach($rows as $row)
                 <tr>
-                    @foreach($headers as $header)
-                        <th scope="col">{{ $header }}</th>
+                    @foreach($row as $item)
+                        <td>{{ $item }}</td>
                     @endforeach
                 </tr>
-                </thead>
-                <tbody>
-                @foreach($rows as $row)
-                    <tr>
-                        @foreach($row as $item)
-                            <td>{{ $item }}</td>
-                        @endforeach
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
-        </div>
-    @endslot
-@endcomponent
+            @endforeach
+            </tbody>
+        </table>
+    </div>
+    <!-- /.box-body -->
+</div>
