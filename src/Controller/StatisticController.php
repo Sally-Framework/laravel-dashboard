@@ -27,6 +27,12 @@ class StatisticController extends Controller
         return view('dashboard::statistic', compact('items'));
     }
 
+    public function newDesign(): View
+    {
+        $items = $this->filler->getFilled();
+        return view('dashboard::new-design', compact('items'));
+    }
+
     private function getFiller(
     	Statistic\Interfaces\CompositeInterface $composite,
 	    Statistic\Interfaces\Type\FactoryInterface $factory
