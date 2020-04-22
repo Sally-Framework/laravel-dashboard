@@ -9,6 +9,7 @@
     <title>Sally Dashboard</title>
     <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('n0tm/dashboard/assets/css/app.css') }}">
+    <script src="{{ asset('n0tm/dashboard/assets/js/app.js') }}"></script>
 
 </head>
 <body class="light sidebar-mini sidebar-collapse">
@@ -79,7 +80,6 @@
     </div>
 </div>
 <!--/#app -->
-<script src="{{ asset('n0tm/dashboard/assets/js/app.js') }}"></script>
 
 </body>
 </html>

@@ -11,7 +11,11 @@ use Sally\Dashboard\Domain\Statistic\Type;
 @extends('dashboard::layouts.new-design')
 
 @section('content')
-
+    <style>
+        .dataTables_wrapper .dataTables_length label {
+            float: left;
+        }
+    </style>
     {{-- Начало секции текстовых карточек --}}
     <div class="row justify-content-center pb-5">
         @foreach($items as $item)
