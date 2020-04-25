@@ -10,23 +10,45 @@ use Sally\Dashboard\Domain\Statistic\Interfaces\Type;
 
 class Factory implements Type\FactoryInterface
 {
-	/**
-	 * @var Type\Diagram\Item\FactoryInterface
-	 */
-	private $itemFactory;
+    /**
+     * @var Type\Common\FactoryInterface
+     */
+    private $commonFactory;
 
-	public function __construct(Type\Diagram\Item\FactoryInterface $itemFactory)
+    /**
+     * @var Type\Diagram\FactoryInterface
+     */
+    private $diagramFactory;
+
+    /**
+     * @var Type\Diagram\Item\FactoryInterface
+     */
+    private $diagramItemFactory;
+
+	public function getCommonFactory(): Type\Common\FactoryInterface
 	{
-		$this->itemFactory = $itemFactory;
+	    if ($this->commonFactory === null) {
+	        $this->commonFactory = new Common\Factory();
+        }
+
+		return $this->commonFactory;
 	}
 
-	public function createCommon(): Type\Common\FactoryInterface
+	public function getDiagramFactory(): Type\Diagram\FactoryInterface
 	{
-		return new Common\Factory();
+        if ($this->diagramFactory === null) {
+            $this->diagramFactory = new Diagram\Factory($this->getDiagramItemFactory());
+        }
+
+        return $this->diagramFactory;
 	}
 
-	public function createDiagram(): Type\Diagram\FactoryInterface
-	{
-		return new Diagram\Factory($this->itemFactory);
-	}
+    public function getDiagramItemFactory(): Type\Diagram\Item\FactoryInterface
+    {
+        if ($this->diagramItemFactory === null) {
+            $this->diagramItemFactory = new Diagram\Item\Factory();
+        }
+
+        return $this->diagramItemFactory;
+    }
 }

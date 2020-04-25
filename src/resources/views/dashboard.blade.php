@@ -72,7 +72,7 @@ function getItemsByClassName(array $items, string $className): array
     </div>
     {{-- Конец секции таблиц --}}
 
-    <div class="row">
+    <div class="row justify-content-center">
         {{-- Начало секции pie chart'ов --}}
         <?php
             $pies = getItemsByClassName($items, Type\Diagram\Pie::class);
