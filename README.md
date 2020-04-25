@@ -2,7 +2,7 @@ Sally Dashboard
 ===============
 
 [![Packagist](https://img.shields.io/packagist/v/sally/dashboard.svg)](https://packagist.org/packages/sally/dashboard)
-[![Packagist](https://img.shields.io/packagist/l/sally/dashboard.svg)](https://packagist.org/packages/sally/dashboard) 
+[![Licence](https://badgen.net/badge/license/MIT/blue)](LICENCE)
 [![Packagist](https://img.shields.io/packagist/dm/sally/dashboard.svg)](https://packagist.org/packages/sally/dashboard) 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/7be7a05b07c94f319ec35f95a4d64074)](https://www.codacy.com/app/sally/dashboard)
 [![Author](https://img.shields.io/badge/author-@n0tm-blue.svg)](https://vk.com/n0tm3)
@@ -200,3 +200,14 @@ class StatisticFiller extends AbstractStatisticFiller
 ```
 
 ## Screenshots
+![Screen](images/dashboard_1.png)
+![Screen](images/example_1.png)
+![Screen](images/barGrouped.png)
+![Screen](images/barHorizontal.png)
+![Screen](images/barVertical.png)
+![Screen](images/cardText.png)
+![Screen](images/doughnut.png)
+![Screen](images/example_2.png)
+![Screen](images/line.png)
+![Screen](images/pie.png)
+![Screen](images/table.png)
