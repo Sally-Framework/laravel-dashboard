@@ -1,54 +1,106 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{{ asset('n0tm/dashboard/assets/img/basic/favicon.ico') }}" type="image/x-icon">
+    <title>Sally Dashboard</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ asset('n0tm/dashboard/assets/css/app.css') }}">
+    <script src="{{ asset('n0tm/dashboard/assets/js/app.js') }}"></script>
+    <script src="{{ asset('n0tm/dashboard/assets/js/tools.js') }}"></script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
 
-        <!-- CSRF Token -->
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+        ::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 4px rgba(0,0,0,0.3);
+            -webkit-border-radius: 4px;
+            border-radius: 4px;
+        }
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        ::-webkit-scrollbar-thumb {
+            -webkit-border-radius: 4px;
+            border-radius: 4px;
+            background: #03A9F4;
+        }
+        ::-webkit-scrollbar-thumb:window-inactive {
+            background: #03A9F4;
+        }
+    </style>
+</head>
+<body class="light sidebar-mini sidebar-collapse">
+<!-- Pre loader -->
+<div id="loader" class="loader">
+    <div class="plane-container">
+        <div class="preloader-wrapper small active">
+            <div class="spinner-layer spinner-blue">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div><div class="gap-patch">
+                    <div class="circle"></div>
+                </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
 
-        <!-- CSS -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        @toastr_css
+            <div class="spinner-layer spinner-red">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div><div class="gap-patch">
+                    <div class="circle"></div>
+                </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
 
-        <!-- Scripts -->
-        <script src="{{ asset('n0tm/dashboard/assets/js/tools.js') }}" defer></script>
-        @jquery
-        @toastr_js
+            <div class="spinner-layer spinner-yellow">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div><div class="gap-patch">
+                    <div class="circle"></div>
+                </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
 
-        <!-- Fonts -->
-        <link rel="dns-prefetch" href="//fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-
-    </head>
-    <body>
-        <div id="app">
-            <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-                <div class="container">
-                    <a class="navbar-brand" href="{{ url('/dashboard') }}">
-                        {{ config('app.name', 'Laravel') }}.Dashboard
-                    </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <!-- Left Side Of Navbar -->
-                        <ul class="navbar-nav mr-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('statistic') }}">Статистика</a>
-                            </li>
-                        </ul>
+            <div class="spinner-layer spinner-green">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div><div class="gap-patch">
+                    <div class="circle"></div>
+                </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="app">
+    <div class="has-sidebar-left has-sidebar-tabs" style="margin-left: 0 !important;">
+        <!--navbar-->
+        <div class="sticky">
+            <div class="navbar navbar-expand d-flex justify-content-between bd-navbar white shadow">
+                <div class="relative">
+                    <div class="d-flex">
+                        <div class="d-none d-md-block">
+                            <h1 class="nav-title">Sally Dashboard</h1>
+                        </div>
                     </div>
                 </div>
-            </nav>
-
-            <main class="py-4">
-                @yield('content')
-            </main>
+            </div>
         </div>
-        @toastr_render
-    </body>
+        <!--#navbar-->
+        <div class="container-fluid my-3">
+            @yield('content')
+        </div>
+    </div>
+</div>
+<!--/#app -->
+
+</body>
 </html>

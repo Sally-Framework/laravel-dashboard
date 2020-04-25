@@ -6,7 +6,7 @@ use Sally\Dashboard\Domain\Statistic\Type;
 
 class DemoStatisticFiller extends AbstractStatisticFiller
 {
-    protected function fill(): void
+    public function fill(): void
     {
         // Генерация текстовых карточек
         $textCardsLimit = 3;

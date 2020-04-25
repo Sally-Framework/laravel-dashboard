@@ -4,8 +4,6 @@ namespace Sally\Dashboard;
 
 use Illuminate\Support\ServiceProvider;
 use Sally\Dashboard\Domain\Statistic;
-use Sally\Dashboard\Helpers\ConfigHelper;
-use Yoeunes\Toastr\ToastrServiceProvider;
 
 class DashboardServiceProvider extends ServiceProvider
 {
@@ -38,8 +36,12 @@ class DashboardServiceProvider extends ServiceProvider
 		    Statistic\Type\Diagram\Item\Factory::class
 	    );
 
-        $this->app->make('Sally\Dashboard\Controller\MainController');
-        $this->app->make('Sally\Dashboard\Controller\StatisticController');
+	    $this->app->bind(
+            Statistic\AbstractStatisticFiller::class,
+            Statistic\DemoStatisticFiller::class
+        );
+
+        $this->app->make('Sally\Dashboard\Controller\DashboardController');
 
 	    $this->loadViewsFrom(__DIR__.'/resources/views', 'dashboard');
     }
@@ -51,20 +53,8 @@ class DashboardServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        include __DIR__.'/routes.php';
-
-        $configFileName = ConfigHelper::CONFIG_FILE_NAME;
-        $this->publishes([
-            __DIR__.'/config.php' => config_path("{$configFileName}.php"),
-        ], 'config');
-
         $this->publishes([
             __DIR__ . '/resources' => public_path('n0tm/dashboard'),
         ], 'public');
-    }
-
-    public function provides()
-    {
-        return [ToastrServiceProvider::class];
     }
 }

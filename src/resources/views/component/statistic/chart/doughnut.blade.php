@@ -4,15 +4,11 @@
 /** @var int[] $values */
 ?>
 
-@component('dashboard::component.card', ['header' => $name])
-    @slot('body')
-        @component('dashboard::component.statistic.chart.diagram-quantity', [
+@component('dashboard::component.statistic.chart.diagram-quantity', [
             'diagramType' => 'doughnut',
             'labels'      => $labels,
             'values'      => $values
         ])
-        @endcomponent
-    @endslot
 @endcomponent
 
 

@@ -25,12 +25,11 @@ abstract class AbstractStatisticFiller
 	    $this->factory   = $typeFactory;
     }
 
-	/**
-	 * @return Type\AbstractType[]
-	 */
-    public function getFilled(): array
+    /**
+     * @return Type\AbstractType[]
+     */
+    public function getStatisticItems(): array
     {
-    	$this->fill();
         return $this->statistic->getItems();
     }
 
@@ -44,5 +43,5 @@ abstract class AbstractStatisticFiller
 		return $this->factory;
 	}
 
-	abstract protected function fill(): void;
+	abstract public function fill(): void;
 }
