@@ -25,16 +25,27 @@ class FactoryTest extends TestCase
 	public function setUp(): void
 	{
 		$this->itemFactory = new Type\Diagram\Item\Factory();
-		$this->typeFactory = new Type\Factory($this->itemFactory);
+		$this->typeFactory = new Type\Factory();
 	}
 
-	public function testCreateCommon(): void
+	public function testGetCommonFactory(): void
 	{
-		$this->assertEquals(new Type\Common\Factory(), $this->typeFactory->createCommon());
+	    $commonFactory = $this->typeFactory->getCommonFactory();
+		$this->assertEquals(new Type\Common\Factory(), $commonFactory);
+		$this->assertSame($commonFactory, $this->typeFactory->getCommonFactory());
 	}
 
-	public function testCreateDiagram(): void
+	public function testGetDiagramFactory(): void
 	{
-		$this->assertEquals(new Type\Diagram\Factory($this->itemFactory), $this->typeFactory->createDiagram());
+	    $diagramFactory = $this->typeFactory->getDiagramFactory();
+		$this->assertEquals(new Type\Diagram\Factory($this->itemFactory), $diagramFactory);
+		$this->assertSame($diagramFactory, $this->typeFactory->getDiagramFactory());
 	}
+
+	public function testGetDiagramItemFactory(): void
+    {
+        $diagramItemFactory = $this->typeFactory->getDiagramItemFactory();
+        $this->assertEquals($this->itemFactory, $diagramItemFactory);
+        $this->assertSame($diagramItemFactory, $this->typeFactory->getDiagramItemFactory());
+    }
 }

@@ -8,6 +8,7 @@ namespace Sally\Dashboard\Domain\Statistic\Interfaces\Type;
 
 interface FactoryInterface
 {
-	public function createCommon(): Common\FactoryInterface;
-	public function createDiagram(): Diagram\FactoryInterface;
+	public function getCommonFactory(): Common\FactoryInterface;
+	public function getDiagramFactory(): Diagram\FactoryInterface;
+	public function getDiagramItemFactory(): Diagram\Item\FactoryInterface;
 }

@@ -12,21 +12,21 @@ class DemoStatisticFiller extends AbstractStatisticFiller
         $textCardsLimit = 3;
         for ($i = 0; $i < $textCardsLimit; $i++) {
             $this->addStatistic(
-                $this->getFactory()->createCommon()->text($this->getRandomLoremIpsum(), random_int(0, 1000))
+                $this->getFactory()->getCommonFactory()->text($this->getRandomLoremIpsum(), random_int(0, 1000))
             );
         }
 
         // Генерация таблиц
         $smallTableRowsLimit = random_int(5, 15);
         $smallTable = $this->getFilledTableWithRandomDataByRowsCount(
-	        $this->getFactory()->createCommon()->table($this->getRandomLoremIpsum()),
+	        $this->getFactory()->getCommonFactory()->table($this->getRandomLoremIpsum()),
             $smallTableRowsLimit
         );
         $this->addStatistic($smallTable);
 
         $bigTableRowsLimit = random_int(100, 200);
         $bigTable = $this->getFilledTableWithRandomDataByRowsCount(
-            $this->getFactory()->createCommon()->table($this->getRandomLoremIpsum()),
+            $this->getFactory()->getCommonFactory()->table($this->getRandomLoremIpsum()),
             $bigTableRowsLimit
         );
         $this->addStatistic($bigTable);
@@ -36,7 +36,7 @@ class DemoStatisticFiller extends AbstractStatisticFiller
 	    for ($i = 0; $i < $pieDiagramLimit; $i++) {
 		    $this->addStatistic(
 			    $this->getFilledQuantityDiagram(
-				    $this->getFactory()->createDiagram()->pie($this->getRandomLoremIpsum()),
+				    $this->getFactory()->getDiagramFactory()->pie($this->getRandomLoremIpsum()),
 				    [
 				        $this->getRandomLoremIpsum() => random_int(200, 1000),
 				        $this->getRandomLoremIpsum() => random_int(200, 1000),
@@ -50,7 +50,7 @@ class DemoStatisticFiller extends AbstractStatisticFiller
         for ($i = 0; $i < $doughnutDiagramLimit; $i++) {
             $this->addStatistic(
                 $this->getFilledQuantityDiagram(
-                    $this->getFactory()->createDiagram()->doughnut($this->getRandomLoremIpsum()),
+                    $this->getFactory()->getDiagramFactory()->doughnut($this->getRandomLoremIpsum()),
                     [
                         $this->getRandomLoremIpsum() => random_int(200, 1000),
                         $this->getRandomLoremIpsum() => random_int(200, 1000),
@@ -62,14 +62,14 @@ class DemoStatisticFiller extends AbstractStatisticFiller
 
         $this->addStatistic(
             $this->getFilledQuantityGroupDiagram(
-                $this->getFactory()->createDiagram()->line($this->getRandomLoremIpsum()),
+                $this->getFactory()->getDiagramFactory()->line($this->getRandomLoremIpsum()),
                 $this->getDatasetForGroupQuantityDiagram()
             )
         );
 
         $this->addStatistic(
             $this->getFilledQuantityDiagram(
-                $this->getFactory()->createDiagram()->barHorizontal($this->getRandomLoremIpsum()),
+                $this->getFactory()->getDiagramFactory()->barHorizontal($this->getRandomLoremIpsum()),
                 [
                     $this->getRandomLoremIpsum() => random_int(200, 1000),
                     $this->getRandomLoremIpsum() => random_int(200, 1000),
@@ -82,7 +82,7 @@ class DemoStatisticFiller extends AbstractStatisticFiller
 
         $this->addStatistic(
             $this->getFilledQuantityDiagram(
-                $this->getFactory()->createDiagram()->barVertical($this->getRandomLoremIpsum()),
+                $this->getFactory()->getDiagramFactory()->barVertical($this->getRandomLoremIpsum()),
                 [
                     $this->getRandomLoremIpsum() => random_int(200, 1000),
                     $this->getRandomLoremIpsum() => random_int(200, 1000),
@@ -95,7 +95,7 @@ class DemoStatisticFiller extends AbstractStatisticFiller
 
         $this->addStatistic(
             $this->getFilledQuantityGroupDiagram(
-                $this->getFactory()->createDiagram()->barGrouped($this->getRandomLoremIpsum()),
+                $this->getFactory()->getDiagramFactory()->barGrouped($this->getRandomLoremIpsum()),
                 $this->getDatasetForGroupQuantityDiagram()
             )
         );
