@@ -37,10 +37,10 @@ class DemoStatisticFillerTest extends TestCase
     public function testFill(): void
 	{
 		$commonStatisticItemsCount  = 5;
-		$this->factory->expects($this->exactly($commonStatisticItemsCount))->method('createCommon');
+		$this->factory->expects($this->exactly($commonStatisticItemsCount))->method('getCommonFactory');
 
 		$diagramStatisticItemsCount = 10;
-        $this->factory->expects($this->exactly($diagramStatisticItemsCount))->method('createDiagram');
+        $this->factory->expects($this->exactly($diagramStatisticItemsCount))->method('getDiagramFactory');
 
 		$totalStatisticItemsCount = $commonStatisticItemsCount + $diagramStatisticItemsCount;
 		$this->statistic->expects($this->exactly($totalStatisticItemsCount))
