@@ -7,14 +7,16 @@
 $generatedViewId = uniqid();
 ?>
 
-<canvas id="{{ $generatedViewId }}" style="height:250px !important;"></canvas>
+<canvas id="{{ $generatedViewId }}"></canvas>
+
 <script type="text/javascript">
     var labels = {!! json_encode($labels) !!};
     var values = {!! json_encode($values) !!};
     var colors = [];
     for (var i = 0; i < values.length; i++) {
-        colors.push('#' + Math.floor(Math.random()*16777215).toString(16));
+        colors.push(getUniqColorForDiagram('{{ $generatedViewId }}'));
     }
+
     var options = {!! isset($options) ? json_encode($options) : '{}' !!};
     var diagram = {
         'type': '{{ $diagramType }}',

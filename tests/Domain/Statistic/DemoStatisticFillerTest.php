@@ -12,25 +12,47 @@ use Sally\Dashboard\Domain\Statistic;
 
 class DemoStatisticFillerTest extends TestCase
 {
-	public function testGetFilled(): void
-	{
-		/** @var Statistic\Type\Factory|MockObject $factory */
-		$factory   = $this->createMock(Statistic\Interfaces\Type\FactoryInterface::class);
-		/** @var Statistic\Composite|MockObject $statistic */
-		$statistic = $this->createMock(Statistic\Interfaces\CompositeInterface::class);
+    /**
+     * @var Statistic\Type\Factory|MockObject $factory
+     */
+    private $factory;
 
+    /**
+     * @var Statistic\Composite|MockObject $statistic
+     */
+    private $statistic;
+
+    /**
+     * @var Statistic\DemoStatisticFiller
+     */
+    private $handler;
+
+    public function setUp()
+    {
+        $this->factory   = $this->createMock(Statistic\Interfaces\Type\FactoryInterface::class);
+        $this->statistic = $this->createMock(Statistic\Interfaces\CompositeInterface::class);
+        $this->handler   = new Statistic\DemoStatisticFiller($this->statistic, $this->factory);
+    }
+
+    public function testFill(): void
+	{
 		$commonStatisticItemsCount  = 5;
-		$factory->expects($this->exactly($commonStatisticItemsCount))->method('createCommon');
+		$this->factory->expects($this->exactly($commonStatisticItemsCount))->method('createCommon');
 
 		$diagramStatisticItemsCount = 10;
-		$factory->expects($this->exactly($diagramStatisticItemsCount))->method('createDiagram');
+        $this->factory->expects($this->exactly($diagramStatisticItemsCount))->method('createDiagram');
 
 		$totalStatisticItemsCount = $commonStatisticItemsCount + $diagramStatisticItemsCount;
-		$statistic->expects($this->exactly($totalStatisticItemsCount))
+		$this->statistic->expects($this->exactly($totalStatisticItemsCount))
 			->method('add')
 			->withAnyParameters();
 
-		$demoHandler = new Statistic\DemoStatisticFiller($statistic, $factory);
-		$demoHandler->getFilled();
+		$this->handler->fill();
 	}
+
+	public function testGetStatisticItems(): void
+    {
+        $this->statistic->expects($this->once())->method('getItems');
+        $this->handler->getStatisticItems();
+    }
 }
